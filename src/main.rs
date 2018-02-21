@@ -1,6 +1,6 @@
 fn main() {
     println!("Hello, world");
-    arrays()
+    condition()
 }
 
 fn data_types() -> String {
@@ -17,5 +17,14 @@ fn tuples() {
 fn arrays() {
     let arr = ["du", "de", "re", "me"];
     let os = arr[2];
-    println!("arr {}",os)
+    println!("arr {}", os)
+}
+
+fn condition() {
+    let num = 3;
+    if num < 4 {
+        println!("Lower!")
+    }else {
+        println!("higher!")
+    }
 }
