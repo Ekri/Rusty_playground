@@ -24,7 +24,21 @@ fn condition() {
     let num = 3;
     if num < 4 {
         println!("Lower!")
-    }else {
+    } else {
         println!("higher!")
+    }
+}
+
+fn loops() {
+    loop {
+        println!("again");
+        break
+    }
+
+    let mut num = 14;
+
+    while num < 18 {
+        println!("again");
+        num +=  1
     }
 }
