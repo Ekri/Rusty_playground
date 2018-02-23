@@ -1,6 +1,6 @@
 fn main() {
     println!("Hello, world");
-    reference();
+    first_word("lalalalalala a");
 }
 
 fn scoping() {
@@ -23,4 +23,27 @@ fn reference() {
 
 fn calculate_length(s: &String) -> usize {
     s.len()
+}
+
+fn mutable_reference() {
+    let mut s = String::from("So there is it");
+
+    mutating(&mut s);
+
+    println!("Hello original mutated {}", s);
+}
+
+fn mutating(s: &mut String) {
+    s.push_str(", additionally")
+}
+
+fn first_word(s: &str) -> &str {
+    let bytes = s.as_bytes();
+
+    for (i, &item) in bytes.iter().enumerate() {
+        if item == b' ' {
+            return &s[..i];
+        }
+    }
+    &s[..]
 }
