@@ -3,4 +3,11 @@ name = "rusty"
 version = "0.1.0"
 authors = ["Bartosz Maciega <maciegabartosz@gmail.com>"]
 
+[features]
+heapsize_impl = ["heapsize", "linked-hash-map/heapsize_impl"]
+
+
 [dependencies]
+linked-hash-map = "0.4.2"
+
+heapsize = { version = "0.3.9", optional = true }
