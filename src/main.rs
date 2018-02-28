@@ -1,4 +1,4 @@
-fn main(){
+fn main() {
     println!("Hello, world")
 }
 
@@ -13,3 +13,18 @@ use linked_hash_map::LinkedHashMap;
 
 
 mod heapsize;
+
+#[derive(Clone)]
+pub struct LruCache<K: Eq + Hash, V, S: BuildHasher = RandomState> {
+    map: LinkedHashMap<K, V, S>,
+    max_size: usize,
+}
+
+impl<K: Eq + Hash, V> LruCache<K, V> {
+    pub fn new(capacity: usize) -> Self {
+        LruCache {
+            map: LinkedHashMap::new(),
+            max_size: capacity,
+        }
+    }
+}
