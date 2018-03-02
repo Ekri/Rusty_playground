@@ -28,3 +28,20 @@ impl<K: Eq + Hash, V> LruCache<K, V> {
         }
     }
 }
+
+impl<K: Eq + Hash, V, S: BuildHasher> LruCache<K, V, S> {
+    pub fn with_hasher(capacity: usize, hash_builder: S) -> Self {
+        LruCache {
+            map: LinkedHashMap::with_hasher(hash_builder),
+            max_size: capacity,
+        }
+    }
+
+    pub fn contains_key<Q: ? Sized>(&mut self, key: &Q) -> bool
+        where K: Borrow<Q>,
+              Q: Hash + Eq
+    {
+//        self.get_mut
+    }
+}
+
