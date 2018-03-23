@@ -9,20 +9,20 @@ fn main() {
 }
 
 fn generate_workout(intensity: u32, random_number: u32) {
-    let expensive_clojure = |num|{
+    let mut expensive_result = Catcher::new(|num| {
         println!("Calculating slowly....");
         thread::sleep(Duration::from_secs(2));
         num
-    };
+    });
 
     if intensity < 25 {
         println!(
             "Today do {} pushups",
-            expensive_clojure(intensity)
+            expensive_result.value(intensity)
         );
         println!(
             "Next do {} situps",
-            expensive_clojure(intensity)
+            expensive_result.value(intensity)
         );
     } else {
         if random_number == 3 {
@@ -30,15 +30,38 @@ fn generate_workout(intensity: u32, random_number: u32) {
         } else {
             println!(
                 "Run for {} minutes",
-                expensive_clojure(intensity)
+                expensive_result.value(intensity)
             );
         }
     }
 }
 
-fn simulated_expensive_calculation(intensity: u32) -> u32 {
-    println!("Calculating slowly....");
-    thread::sleep(Duration::from_secs(2));
-    intensity
+struct Catcher<T>
+    where T: Fn(u32) -> u32
+{
+    calculation: T,
+    value: Option<u32>,
 }
 
+//TODO modify catcher to first: store values in hashmap and access them based on parameter key, be more generic to can use more types of clojures
+impl<T> Catcher<T>
+    where T: Fn(u32) -> u32
+{
+    fn new(calculation: T) -> Catcher<T> {
+        Catcher {
+            calculation,
+            value: None,
+        }
+    }
+
+    fn value(&mut self, arg: u32) -> u32 {
+        match self.value {
+            Some(v) => v,
+            None => {
+                let v = (self.calculation)(arg);
+                self.value = Some(v);
+                v
+            }
+        }
+    }
+}
