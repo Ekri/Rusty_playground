@@ -1,25 +1,47 @@
-pub trait Draw {
-    fn draw(&self);
+pub struct Post {
+    state: Option<Box<State>>,
+    content: String,
 }
 
-pub struct Screen {
-    pub components: Vec<Box<Draw>>
-}
+impl Post {
+    pub fn new() -> Post {
+        Post {
+            state: Some(Box::new(Draft {})),
+            content: String::new(),
+        }
+    }
 
-impl Screen {
-    pub fn run(&self) {
-        for component in self.components.iter() {
-            component.draw();
+    pub fn add_text(&mut self, text: &str) {
+        self.content.push_str(text);
+    }
+
+    pub fn content(&self) -> String {
+        ""
+    }
+
+    pub fn request_review(&mut self) {
+        if let Some(s) = self.state.take() {
+            self.state = Some(s.request_review())
         }
     }
 }
 
-pub struct Button {
-    pub width: u32,
-    pub height: u32,
-    pub label: String,
+trait State {
+    fn request_review(self: Box<Self>) -> Box<State>;
 }
 
-impl Draw for Button {
-    fn draw(&self) {}
+struct Draft {}
+
+impl State for Draft {
+    fn request_review(self: Box<Self>) -> Box<State> {
+        Box::new(PendingReview {})
+    }
+}
+
+struct PendingReview {}
+
+impl State for PendingReview {
+    fn request_review(self: Box<Self>) -> Box<State> {
+        self
+    }
 }
