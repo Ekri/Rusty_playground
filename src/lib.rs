@@ -37,7 +37,7 @@ trait State {
     fn approve(self: Box<Self>) -> Box<State>;
     fn content<'a>(&self, post: &'a Post) -> &'a str {
         ""
-    };
+    }
 }
 
 struct Draft {}
