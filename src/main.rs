@@ -18,11 +18,20 @@ impl Message {
     }
 }
 
+#[derive(Debug)]
+enum UsState {
+    Alabama,
+    Alaska,
+    Utah,
+    Teksas,
+    Nebrasca,
+}
+
 enum Coin {
     Penny,
     Nickel,
     Dime,
-    Quarter,
+    Quarter(UsState),
 }
 
 fn value_in_cents(coin: Coin) -> u32 {
@@ -30,7 +39,7 @@ fn value_in_cents(coin: Coin) -> u32 {
         Coin::Penny => 1,
         Coin::Nickel => 5,
         Coin::Dime => 10,
-        Coin::Quarter => 25
+        Coin::Quarter(state) => 25
     }
 }
 
@@ -52,7 +61,12 @@ fn plus_one(x: Option<i32>) -> Option<i32> {
     }
 }
 
-fn if_let_else(){
+fn if_let_else() {
+    let some_u8_value = Some(0u8);
+    if let Some(3) = some_u8_value {
+        println!("three");
+    }
+
     let mut count = 0;
     let coin = Coin::Quarter;
     if let Coin::Quarter = coin {
