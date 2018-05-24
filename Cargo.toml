@@ -4,3 +4,4 @@ version = "0.1.0"
 authors = ["Bartosz Maciega <maciegabartosz@gmail.com>"]
 
 [dependencies]
+communicator = { path = "communicator/"}

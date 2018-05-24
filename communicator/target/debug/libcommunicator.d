@@ -1,1 +1,0 @@
-/Users/bartoszmaciej/IdeaProjects/Rusty_playground/communicator/target/debug/libcommunicator.rmeta: /Users/bartoszmaciej/IdeaProjects/Rusty_playground/communicator/src/client.rs /Users/bartoszmaciej/IdeaProjects/Rusty_playground/communicator/src/lib.rs
